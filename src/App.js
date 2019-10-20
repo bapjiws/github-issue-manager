@@ -8,6 +8,9 @@ import './App.css';
 
 const client = new ApolloClient({
   uri: 'https://api.github.com/graphql',
+  headers: {
+    Authorization: `Bearer ${process.env.REACT_APP_GITHUB_GRAPHQL_API}`
+  }
 });
 
 const App = () => {
