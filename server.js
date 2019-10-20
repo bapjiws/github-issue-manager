@@ -8,6 +8,7 @@ const wss = new WebSocket.Server({ port: 8080 });
 
 let websocket;
 
+// Requires the client to send a GET request to complete the handshake.
 wss.on('connection', ws => {
   websocket = ws;
 
