@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send a message to the dashboard 
-        run: curl https://2e339b92.ngrok.io/issues
+        run: curl https://53e5b645.ngrok.io/issues
