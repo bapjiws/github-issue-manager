@@ -4,7 +4,6 @@ on:
   issues:
     types: [opened]
   
-
 jobs:
   notify_the_dashboard:
     runs-on: ubuntu-latest
