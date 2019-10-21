@@ -43,7 +43,7 @@ export const Issues = () => {
     <div key={id}>
       {bodyText}
       <br/>
-      <a href={url}>{title}</a>
+      <a href={url} target="_blank">{title}</a>
     </div>
   ));
 };
