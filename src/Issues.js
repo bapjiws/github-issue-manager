@@ -43,6 +43,6 @@ export const Issues = () => {
   console.log('issues:', issues);
 
   return issues.edges.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
-    <Issue {...{avatarUrl, bodyText, createdAt, id, title, url}} />
+    <Issue key={id} {...{avatarUrl, bodyText, createdAt, title, url}} />
   ));
 };
