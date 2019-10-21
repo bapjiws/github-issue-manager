@@ -1,0 +1,15 @@
+.Issue {
+  border: 1px solid white;
+  display: flex;
+}
+
+.Issue-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.Issue-avatar-container {
+  padding: 10px;
+  height: 100px;
+  box-sizing: content-box;
+}

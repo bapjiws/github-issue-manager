@@ -2,6 +2,8 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
+import { Issue } from './Issue';
+
 // TODO: make `owner` and `name` dynamic.
 const OPEN_ISSUES = gql`
   {
@@ -15,11 +17,12 @@ const OPEN_ISSUES = gql`
             title
             url
             bodyText
-            assignees(last: 20) {
+            assignees(first: 1) {
               edges {
                 node {
                   login
                   name
+                  avatarUrl
                 }
               }
             }
@@ -39,11 +42,7 @@ export const Issues = () => {
   const { repository: { issues } } = data;
   console.log('issues:', issues);
 
-  return issues.edges.map(({ node: { id, title, url, bodyText } }) => (
-    <div key={id}>
-      {bodyText}
-      <br/>
-      <a href={url} target="_blank">{title}</a>
-    </div>
+  return issues.edges.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
+    <Issue {...{avatarUrl, bodyText, createdAt, id, title, url}} />
   ));
 };
