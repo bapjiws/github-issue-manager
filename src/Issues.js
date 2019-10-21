@@ -6,7 +6,8 @@ import { gql } from 'apollo-boost';
 const OPEN_ISSUES = gql`
   {
     repository(owner: "bapjiws", name: "github-issue-manager") {
-      issues(last: 20, states: OPEN, orderBy: {field: CREATED_AT, direction: DESC}) {
+      issues(last: 20, states: OPEN, orderBy: {field: CREATED_AT, direction: DESC}, filterBy: {assignee: "bapjiws"}) {
+        totalCount
         edges {
           node {
             createdAt
