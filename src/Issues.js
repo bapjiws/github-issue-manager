@@ -10,6 +10,7 @@ const OPEN_ISSUES = gql`
         totalCount
         edges {
           node {
+            id
             createdAt
             title
             url
@@ -35,7 +36,14 @@ export const Issues = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  console.log('data:', data);
+  const { repository: { issues } } = data;
+  console.log('issues:', issues);
 
-  return <div>Issues: </div>;
+  return issues.edges.map(({ node: { id, title, url, bodyText } }) => (
+    <div key={id}>
+      {bodyText}
+      <br/>
+      <a href={url}>{title}</a>
+    </div>
+  ));
 };
