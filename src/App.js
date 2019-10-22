@@ -3,7 +3,6 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
 import { Issues } from './Issues';
-import logo from './logo.svg';
 import './App.css';
 
 const client = new ApolloClient({
