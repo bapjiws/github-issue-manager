@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
 import { Issue } from './Issue';
-import { IssueCard } from './IssueCard';
 
 // TODO: make `owner` and `name` dynamic.
 const OPEN_ISSUES = gql`
@@ -45,8 +44,8 @@ export const Issues = () => {
 
   return (
     <>
-      {issues.edges.slice(0, 1).map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
-      <IssueCard key={id} {...{avatarUrl, bodyText, createdAt, title, url}} />
+      {issues.edges.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
+      <Issue key={id} {...{avatarUrl, bodyText, createdAt, title, url}} />
       ))}
     </>
   );
