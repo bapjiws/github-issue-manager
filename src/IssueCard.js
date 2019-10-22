@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export function IssueCard() {
+export const IssueCard = () => {
   const classes = useStyles();
 
   return (
@@ -50,4 +50,4 @@ export function IssueCard() {
       </Grid>
     </Card>
   );
-}
+};
