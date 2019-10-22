@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url }) => {
+export const Issue = ({ avatarUrl, bodyText, createdAt, title, url }) => {
   const classes = useStyles();
 
   return (
