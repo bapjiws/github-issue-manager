@@ -7,6 +7,7 @@ import {
   CardActions,
   CardContent,
   Grid,
+  Link,
   Typography
 } from '@material-ui/core';
 
@@ -19,28 +20,31 @@ const useStyles = makeStyles({
   },
 });
 
-export const IssueCard = () => {
+export const IssueCard = ({ avatarUrl, bodyText, createdAt, id, title, url }) => {
   const classes = useStyles();
 
   return (
     <Card className={classes.card}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
-          Lizard
+          {title}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-          across all continents except Antarctica
+          {bodyText}
         </Typography>
       </CardContent>
       <Grid container>
         <Grid item xs={10}>
           <CardActions>
             <Button size="small" color="primary">
-              Share
+              <Link href={url} target="_blank">
+                TO REPO
+              </Link>
             </Button>
             <Button size="small" color="primary">
-              Learn More
+              <Link href={url}>
+                CLOSE ISSUE
+              </Link>
             </Button>
           </CardActions>
         </Grid>

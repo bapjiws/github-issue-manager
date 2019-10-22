@@ -45,10 +45,9 @@ export const Issues = () => {
 
   return (
     <>
-      {issues.edges.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
-      <Issue key={id} {...{avatarUrl, bodyText, createdAt, title, url}} />
+      {issues.edges.slice(0, 1).map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
+      <IssueCard key={id} {...{avatarUrl, bodyText, createdAt, title, url}} />
       ))}
-      <IssueCard />
     </>
   );
 };
