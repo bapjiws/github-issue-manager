@@ -8,6 +8,7 @@ import {
   CardContent,
   Grid,
   Link,
+  Tooltip,
   Typography
 } from '@material-ui/core';
 
@@ -26,9 +27,11 @@ export const IssueCard = ({ avatarUrl, bodyText, createdAt, id, title, url }) =>
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="h2">
-          {title}
-        </Typography>
+        <Tooltip title={`Created at ${new Date(createdAt).toDateString()}`} placement="top">
+          <Typography gutterBottom variant="h5" component="h2">
+            {title}
+          </Typography>
+        </Tooltip>
         <Typography variant="body2" color="textSecondary" component="p">
           {bodyText}
         </Typography>
