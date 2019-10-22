@@ -42,10 +42,11 @@ export const Issues = () => {
   const { repository: { issues } } = data;
   console.log('issues:', issues);
 
+  // TODO: Show a message if no issues are present.
   return (
     <>
       {issues.edges.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
-      <Issue key={id} {...{avatarUrl, bodyText, createdAt, title, url}} />
+      <Issue key={id} {...{avatarUrl, bodyText, createdAt, id, title, url}} />
       ))}
     </>
   );

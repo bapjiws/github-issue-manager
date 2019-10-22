@@ -1,4 +1,6 @@
 import React from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Avatar,
@@ -22,8 +24,28 @@ const useStyles = makeStyles({
   },
 });
 
-export const Issue = ({ avatarUrl, bodyText, createdAt, title, url }) => {
+const CLOSE_ISSUE = gql`
+  mutation($issueId:ID!) {
+    closeIssue(input: {issueId: $issueId}) {
+      issue {
+        closed
+      }
+    }
+  }
+`;
+
+export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url }) => {
   const classes = useStyles();
+  const [findIssueById, { data }] = useMutation(CLOSE_ISSUE);
+
+  if (data) {
+    console.log('closed issue:', id, data.closeIssue.issue.closed);
+  }
+
+  // "MDU6SXNzdWU1MDk2NzEzNjI="
+  const handleRemoveIssue = () => {
+    findIssueById({ variables: { issueId: id } })
+  };
 
   return (
     <Card className={classes.card}>
@@ -45,10 +67,8 @@ export const Issue = ({ avatarUrl, bodyText, createdAt, title, url }) => {
                 TO REPO
               </Link>
             </Button>
-            <Button size="small" color="primary">
-              <Link href={url}>
-                CLOSE ISSUE
-              </Link>
+            <Button size="small" color="primary" onClick={handleRemoveIssue}>
+              CLOSE ISSUE
             </Button>
           </CardActions>
         </Grid>
