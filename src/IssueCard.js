@@ -28,7 +28,7 @@ export const IssueCard = ({ avatarUrl, bodyText, createdAt, id, title, url }) =>
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Tooltip title={`Created at ${new Date(createdAt).toDateString()}`} placement="top">
+        <Tooltip title={`Created on ${new Date(createdAt).toDateString()}`} placement="top">
           <Typography gutterBottom variant="h5" component="h2">
             {title}
           </Typography>
