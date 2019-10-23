@@ -56,9 +56,9 @@ export const Issues = () => {
   };
   useEffect(() => {
     socket = io('http://localhost:5000');
-    socket.on("Accessed /issues", () => refetch());
   }, []);
   useEffect(() => {
+    console.log('sss');
     if (data !== undefined) {
       setIssuesList(data.repository.issues.edges);
     }
@@ -66,9 +66,9 @@ export const Issues = () => {
 
   if (loading) return <CircularProgress />;
   if (error) return <p>Error :(</p>;
+  socket.on("Accessed /issues", () => refetch());
 
   const { repository: { issues } } = data;
-  console.log('issues:', issues);
 
   return issuesList.length === 0 ?
     <Typography variant="h5" component="h2" className={classes.message}>
