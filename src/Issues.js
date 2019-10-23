@@ -53,7 +53,7 @@ export const Issues = () => {
 
   return issues.totalCount === 0 ?
     <Typography variant="h5" component="h2" className={classes.message}>
-      NO ISSUES ASSIGNED TO YOU
+      No issues assigned to you! 🎉
     </Typography> :
     issues.edges.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
       <Issue key={id} {...{avatarUrl, bodyText, createdAt, id, title, url}} />
