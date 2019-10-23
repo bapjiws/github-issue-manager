@@ -21,4 +21,5 @@ app.get('/issues', (req, res) => {
   res.send('Let\'s update the issues!');
 });
 
-http.listen(5000, () => console.log('Listening'));
+const port = process.env.PORT || 5000;
+http.listen(port, () => console.log(`Listening on port ${port}`));
