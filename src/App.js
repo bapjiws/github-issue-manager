@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
@@ -12,28 +12,14 @@ const client = new ApolloClient({
   }
 });
 
-const App = () => {
-  const ws = new WebSocket('ws://localhost:8080');
-
-  useEffect(() => {
-    ws.onopen = event => {
-      console.log("WebSocket is open now.");
-    };
-
-    ws.onmessage = event => {
-      console.log("WebSocket message received:", event);
-    };
-  });
-
-  return (
-    <ApolloProvider client={client}>
-      <div className="App">
-        <header className="App-header">
-          <Issues />
-        </header>
-      </div>
-    </ApolloProvider>
-  );
-};
+const App = () => (
+  <ApolloProvider client={client}>
+    <div className="App">
+      <header className="App-header">
+        <Issues />
+      </header>
+    </div>
+  </ApolloProvider>
+);
 
 export default App;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import io from 'socket.io-client';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   CircularProgress,
@@ -45,13 +46,18 @@ const OPEN_ISSUES = gql`
   }
 `;
 
+let socket;
 export const Issues = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(OPEN_ISSUES);
+  const { loading, error, data, refetch } = useQuery(OPEN_ISSUES);
   const [issuesList, setIssuesList] = useState([]);
   const handleCloseIssue = id => {
     setIssuesList(issuesList.filter(({ node }) => node.id !== id ));
   };
+  useEffect(() => {
+    socket = io('http://localhost:5000');
+    socket.on("Accessed /issues", () => refetch());
+  }, []);
   useEffect(() => {
     if (data !== undefined) {
       setIssuesList(data.repository.issues.edges);
