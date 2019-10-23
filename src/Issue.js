@@ -34,7 +34,7 @@ const CLOSE_ISSUE = gql`
   }
 `;
 
-export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url }) => {
+export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url, handleCloseIssue }) => {
   const classes = useStyles();
   const [closeIssue, { data }] = useMutation(CLOSE_ISSUE);
 
@@ -43,8 +43,9 @@ export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url }) => {
   }
 
   // "MDU6SXNzdWU1MDk2NzEzNjI="
-  const handleRemoveIssue = () => {
-    closeIssue({ variables: { issueId: id } })
+  const handleOnClick = () => {
+    closeIssue({ variables: { issueId: id } });
+    handleCloseIssue(id);
   };
 
   return (
@@ -67,7 +68,7 @@ export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url }) => {
                 TO REPO
               </Link>
             </Button>
-            <Button size="small" color="primary" onClick={handleRemoveIssue}>
+            <Button size="small" color="primary" onClick={handleOnClick}>
               CLOSE ISSUE
             </Button>
           </CardActions>

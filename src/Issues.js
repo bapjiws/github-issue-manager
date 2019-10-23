@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +13,7 @@ const useStyles = makeStyles({
 });
 
 // TODO: make `owner` and `name` dynamic.
+// TODO: login and name are not needed to render.
 const OPEN_ISSUES = gql`
   {
     repository(owner: "bapjiws", name: "github-issue-manager") {
@@ -44,6 +45,15 @@ const OPEN_ISSUES = gql`
 export const Issues = () => {
   const classes = useStyles();
   const { loading, error, data } = useQuery(OPEN_ISSUES);
+  const [issuesList, setIssuesList] = useState([]);
+  const handleCloseIssue = id => {
+    setIssuesList(issuesList.filter(({ node }) => node.id !== id ));
+  };
+  useEffect(() => {
+    if (data !== undefined) {
+      setIssuesList(issues.edges);
+    }
+  }, [data]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -51,11 +61,11 @@ export const Issues = () => {
   const { repository: { issues } } = data;
   console.log('issues:', issues);
 
-  return issues.totalCount === 0 ?
+  return issuesList.length === 0 ?
     <Typography variant="h5" component="h2" className={classes.message}>
       No issues assigned to you! 🎉
     </Typography> :
-    issues.edges.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
-      <Issue key={id} {...{avatarUrl, bodyText, createdAt, id, title, url}} />
+    issuesList.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
+      <Issue key={id} {...{avatarUrl, bodyText, createdAt, id, title, url, handleCloseIssue}} />
     ));
 };
