@@ -54,7 +54,7 @@ export const Issues = () => {
   };
   useEffect(() => {
     if (data !== undefined) {
-      setIssuesList(issues.edges);
+      setIssuesList(data.repository.issues.edges);
     }
   }, [data]);
 
