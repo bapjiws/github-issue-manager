@@ -36,11 +36,7 @@ const CLOSE_ISSUE = gql`
 
 export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url, handleCloseIssue }) => {
   const classes = useStyles();
-  const [closeIssue, { data }] = useMutation(CLOSE_ISSUE);
-
-  if (data) {
-    console.log('closed issue:', id, data.closeIssue.issue.closed);
-  }
+  const [ closeIssue ] = useMutation(CLOSE_ISSUE);
 
   return (
     <Card className={classes.card}>
