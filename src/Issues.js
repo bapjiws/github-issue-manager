@@ -1,9 +1,16 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
 import { Issue } from './Issue';
+
+const useStyles = makeStyles({
+  message: {
+    color: 'black'
+  }
+});
 
 // TODO: make `owner` and `name` dynamic.
 const OPEN_ISSUES = gql`
@@ -35,6 +42,7 @@ const OPEN_ISSUES = gql`
 `;
 
 export const Issues = () => {
+  const classes = useStyles();
   const { loading, error, data } = useQuery(OPEN_ISSUES);
 
   if (loading) return <p>Loading...</p>;
@@ -44,7 +52,7 @@ export const Issues = () => {
   console.log('issues:', issues);
 
   return issues.totalCount === 0 ?
-    <Typography variant="h5" component="h2">
+    <Typography variant="h5" component="h2" className={classes.message}>
       NO ISSUES ASSIGNED TO YOU
     </Typography> :
     issues.edges.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
