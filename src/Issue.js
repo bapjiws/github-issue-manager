@@ -36,7 +36,7 @@ const CLOSE_ISSUE = gql`
 
 export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url }) => {
   const classes = useStyles();
-  const [findIssueById, { data }] = useMutation(CLOSE_ISSUE);
+  const [closeIssue, { data }] = useMutation(CLOSE_ISSUE);
 
   if (data) {
     console.log('closed issue:', id, data.closeIssue.issue.closed);
@@ -44,7 +44,7 @@ export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url }) => {
 
   // "MDU6SXNzdWU1MDk2NzEzNjI="
   const handleRemoveIssue = () => {
-    findIssueById({ variables: { issueId: id } })
+    closeIssue({ variables: { issueId: id } })
   };
 
   return (
