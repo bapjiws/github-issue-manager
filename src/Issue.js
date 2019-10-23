@@ -42,12 +42,6 @@ export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url, handleCl
     console.log('closed issue:', id, data.closeIssue.issue.closed);
   }
 
-  // "MDU6SXNzdWU1MDk2NzEzNjI="
-  const handleOnClick = () => {
-    closeIssue({ variables: { issueId: id } });
-    handleCloseIssue(id);
-  };
-
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -68,7 +62,10 @@ export const Issue = ({ avatarUrl, bodyText, createdAt, id, title, url, handleCl
                 TO REPO
               </Link>
             </Button>
-            <Button size="small" color="primary" onClick={handleOnClick}>
+            <Button size="small" color="primary" onClick={() => {
+              closeIssue({ variables: { issueId: id } });
+              handleCloseIssue(id);
+            }}>
               CLOSE ISSUE
             </Button>
           </CardActions>
