@@ -2,7 +2,7 @@ name: CI
 
 on: 
   issues:
-    types: [opened]
+    types: [opened, reopened]
   
 jobs:
   notify_the_dashboard:
