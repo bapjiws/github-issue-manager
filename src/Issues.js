@@ -50,7 +50,7 @@ export const OPEN_ISSUES = gql`
 let socket;
 export const Issues = ({ handleUpdateApp }) => {
   const classes = useStyles();
-  const { loading, error, data, refetch } = useQuery(OPEN_ISSUES);
+  const { client, loading, error, data, refetch } = useQuery(OPEN_ISSUES);
   const [issuesList, setIssuesList] = useState([]);
   const handleCloseIssue = id => {
     setIssuesList(issuesList.filter(({ node }) => node.id !== id ));
@@ -67,6 +67,7 @@ export const Issues = ({ handleUpdateApp }) => {
   if (loading) return <CircularProgress />;
   if (error) {
     localStorage.setItem('token', '');
+    client.resetStore();
     return (
       <Typography variant="h5" component="h2" className={classes.message}>
         {`${error.networkError.statusCode === 401 ? 'Invalid token' : 'Something went wrong'}. Please reload the app.`}
@@ -94,6 +95,7 @@ export const Issues = ({ handleUpdateApp }) => {
         onClick={() => {
           handleUpdateApp();
           localStorage.setItem('token', '');
+          client.resetStore();
         }}
       >
         Quit
