@@ -55,7 +55,7 @@ export const Issues = () => {
     setIssuesList(issuesList.filter(({ node }) => node.id !== id ));
   };
   useEffect(() => {
-    socket = io('http://localhost:5000');
+    socket = io('https://github-issue-dashboard.herokuapp.com');
   }, []);
   useEffect(() => {
     if (data !== undefined) {
