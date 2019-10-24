@@ -11,7 +11,6 @@ import './App.css';
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('token');
-  console.log('token:', token);
 
   operation.setContext(({ headers = {} }) => ({
     headers: {
