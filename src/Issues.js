@@ -64,7 +64,13 @@ export const Issues = () => {
   }, [data]);
 
   if (loading) return <CircularProgress />;
-  if (error) return <p>Error :(</p>;
+  if (error) {
+    return (
+      <Typography variant="h5" component="h2" className={classes.message}>
+        {`${error.networkError.statusCode === 401 ? 'Invalid token' : 'Something went wrong'}. Please reload the app.`}
+      </Typography>
+    )
+  }
   socket.on("Accessed /issues", () => refetch());
 
   return issuesList.length === 0 ?
