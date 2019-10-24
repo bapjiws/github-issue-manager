@@ -36,14 +36,15 @@ const client = new ApolloClient({
 });
 
 const App = () => {
-  const [ , setAttemptingToSignIn ] = useState(false);
+  const [ updateApp , setUpdateApp ] = useState(false);
+  const handleUpdateApp = () => setUpdateApp(!updateApp);
 
   return (
     <ApolloProvider client={client}>
       <div className="App">
         <header className="App-header">
           {
-            localStorage.getItem('token') ? <Issues /> : <Signin setAttemptingToSignIn={setAttemptingToSignIn} />
+            localStorage.getItem('token') ? <Issues handleUpdateApp={handleUpdateApp} /> : <Signin handleUpdateApp={handleUpdateApp} />
           }
         </header>
       </div>

@@ -4,17 +4,22 @@ import { gql } from 'apollo-boost';
 import io from 'socket.io-client';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  Button,
   CircularProgress,
   Typography
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { Issue } from './Issue';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   message: {
     color: 'black'
-  }
-});
+  },
+  button: {
+    margin: theme.spacing(1)
+  },
+}));
 
 // TODO: make `owner` and `name` dynamic.
 // TODO: login and name are not needed to render.
@@ -47,7 +52,7 @@ const OPEN_ISSUES = gql`
 `;
 
 let socket;
-export const Issues = () => {
+export const Issues = ({ handleUpdateApp }) => {
   const classes = useStyles();
   const { loading, error, data, refetch } = useQuery(OPEN_ISSUES);
   const [issuesList, setIssuesList] = useState([]);
@@ -74,11 +79,29 @@ export const Issues = () => {
   }
   socket.on("Accessed /issues", () => refetch());
 
-  return issuesList.length === 0 ?
-    <Typography variant="h5" component="h2" className={classes.message}>
-      No issues assigned to you! 🎉
-    </Typography> :
-    issuesList.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
-      <Issue key={id} {...{avatarUrl, bodyText, createdAt, id, title, url, handleCloseIssue}} />
-    ));
+  return (
+    <>
+      {
+        issuesList.length === 0 ?
+          <Typography variant="h5" component="h2" className={classes.message}>
+            No issues assigned to you! 🎉
+          </Typography> :
+          issuesList.map(({ node: { bodyText, createdAt, id, title, url, assignees: { edges: [ { node: { avatarUrl } } ] }} }) => (
+            <Issue key={id} {...{avatarUrl, bodyText, createdAt, id, title, url, handleCloseIssue}} />
+          ))
+      }
+      <Button
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        startIcon={<DeleteIcon />}
+        onClick={() => {
+          handleUpdateApp();
+          localStorage.setItem('token', '');
+        }}
+      >
+        Quit
+      </Button>
+    </>
+  )
 };

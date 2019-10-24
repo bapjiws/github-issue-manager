@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const Signin = ({ setAttemptingToSignIn }) => {
+export const Signin = ({ handleUpdateApp }) => {
   const classes = useStyles();
   const [ token, setToken ] = useState('');
 
@@ -18,7 +18,7 @@ export const Signin = ({ setAttemptingToSignIn }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    setAttemptingToSignIn(true);
+    handleUpdateApp();
     localStorage.setItem('token', token);
   };
 
