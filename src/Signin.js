@@ -18,8 +18,8 @@ export const Signin = ({ handleUpdateApp }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    handleUpdateApp();
     localStorage.setItem('token', token);
+    handleUpdateApp();
   };
 
   return (

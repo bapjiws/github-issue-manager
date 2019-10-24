@@ -67,7 +67,7 @@ export const Issues = ({ handleUpdateApp }) => {
   if (loading) return <CircularProgress />;
   if (error) {
     localStorage.setItem('token', '');
-    client.resetStore();
+    client.clearStore();
     return (
       <Typography variant="h5" component="h2" className={classes.message}>
         {`${error.networkError.statusCode === 401 ? 'Invalid token' : 'Something went wrong'}. Please reload the app.`}
@@ -93,9 +93,9 @@ export const Issues = ({ handleUpdateApp }) => {
         className={classes.button}
         startIcon={<DeleteIcon />}
         onClick={() => {
-          handleUpdateApp();
           localStorage.setItem('token', '');
-          client.resetStore();
+          client.clearStore();
+          handleUpdateApp();
         }}
       >
         Quit
