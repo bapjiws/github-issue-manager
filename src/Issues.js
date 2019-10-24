@@ -21,8 +21,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// TODO: make `owner` and `name` dynamic.
-// TODO: login and name are not needed to render.
 const OPEN_ISSUES = gql`
   {
     repository(owner: "bapjiws", name: "github-issue-manager") {
@@ -38,8 +36,6 @@ const OPEN_ISSUES = gql`
             assignees(first: 1) {
               edges {
                 node {
-                  login
-                  name
                   avatarUrl
                 }
               }
