@@ -1,25 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink, from } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { Issues } from './Issues';
+import { Signin } from './Signin';
 import './App.css';
 
-const client = new ApolloClient({
-  uri: 'https://api.github.com/graphql',
-  headers: {
-    Authorization: `Bearer ${process.env.REACT_APP_GITHUB_GRAPHQL_API}`
-  }
+const authMiddleware = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem('token');
+  console.log('token:', token);
+
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }));
+
+  return forward(operation);
 });
 
-const App = () => (
-  <ApolloProvider client={client}>
-    <div className="App">
-      <header className="App-header">
-        <Issues />
-      </header>
-    </div>
-  </ApolloProvider>
-);
+const httpLink = new HttpLink({
+  uri: 'https://api.github.com/graphql'
+});
+
+const client = new ApolloClient({
+  link: from([
+    authMiddleware,
+    httpLink
+  ]),
+  cache: new InMemoryCache()
+});
+
+const App = () => {
+  const [ loggedIn, setLoggedIn ] = useState(false);
+
+  return (
+    <ApolloProvider client={client}>
+      <div className="App">
+        <header className="App-header">
+          {
+            loggedIn ? <Issues /> : <Signin setLoggedIn={setLoggedIn} />
+          }
+        </header>
+      </div>
+    </ApolloProvider>
+  );
+}
 
 export default App;
