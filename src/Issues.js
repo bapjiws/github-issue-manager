@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const OPEN_ISSUES = gql`
+export const OPEN_ISSUES = gql`
   {
     repository(owner: "bapjiws", name: "github-issue-manager") {
       issues(last: 20, states: OPEN, orderBy: {field: CREATED_AT, direction: DESC}, filterBy: {assignee: "bapjiws"}) {
