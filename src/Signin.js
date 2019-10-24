@@ -8,8 +8,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const Signin = ({ setLoggedIn }) => {
-  console.log('setLoggedIn:', setLoggedIn);
+export const Signin = ({ setAttemptingToSignIn }) => {
   const classes = useStyles();
   const [ token, setToken ] = useState('');
 
@@ -19,7 +18,7 @@ export const Signin = ({ setLoggedIn }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    setLoggedIn(true);
+    setAttemptingToSignIn(true);
     localStorage.setItem('token', token);
   };
 

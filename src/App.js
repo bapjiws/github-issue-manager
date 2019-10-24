@@ -36,19 +36,19 @@ const client = new ApolloClient({
 });
 
 const App = () => {
-  const [ loggedIn, setLoggedIn ] = useState(false);
+  const [ , setAttemptingToSignIn ] = useState(false);
 
   return (
     <ApolloProvider client={client}>
       <div className="App">
         <header className="App-header">
           {
-            loggedIn ? <Issues /> : <Signin setLoggedIn={setLoggedIn} />
+            localStorage.getItem('token') ? <Issues /> : <Signin setAttemptingToSignIn={setAttemptingToSignIn} />
           }
         </header>
       </div>
     </ApolloProvider>
   );
-}
+};
 
 export default App;

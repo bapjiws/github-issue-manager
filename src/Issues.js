@@ -65,6 +65,7 @@ export const Issues = () => {
 
   if (loading) return <CircularProgress />;
   if (error) {
+    localStorage.setItem('token', '');
     return (
       <Typography variant="h5" component="h2" className={classes.message}>
         {`${error.networkError.statusCode === 401 ? 'Invalid token' : 'Something went wrong'}. Please reload the app.`}
